@@ -6,70 +6,83 @@
         <p>{{ .Site.Params.description | default "Empowering Morocco's Tech Community" }}</p>
         <p>Nexmorocco is a vibrant community dedicated to fostering technology and innovation in Morocco. We bring together developers, entrepreneurs, and tech enthusiasts to share knowledge, collaborate on projects, and drive the growth of Morocco's tech ecosystem.</p>
     </section>
-
-
-
+   
     <!-- Upcoming Events Section -->
     <section class="upcoming-events">
         <h2>Upcoming Events</h2>
         <div class="flex-container">
             {{ $events := where .Site.RegularPages "Section" "events" }}
-            {{ range first 4 $events }}
-                <div class="list-item card">
-                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-                        {{ .Date.Format "January 2, 2006" }}
-                    </time>
-                    <p>{{ .Summary }}</p>
-                </div>
-            {{ else }}
+            {{ $eventCount := 0 }}
+            {{ range $events }}
+                {{ if lt $eventCount 4 }}
+                    <div class="list-item card">
+                        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                            {{ .Date.Format "January 2, 2006" }}
+                        </time>
+                        <p>{{ .Summary }}</p>
+                    </div>
+                    {{ $eventCount = add $eventCount 1 }}
+                {{ end }}
+            {{ end }}
+            {{ if eq $eventCount 0 }}
                 <p>No upcoming events at the moment. Check back soon!</p>
             {{ end }}
         </div>
     </section>
-
+ 
     <!-- Featured Projects Section -->
     <section class="featured-projects">
         <h2>Featured Projects</h2>
         <div class="flex-container">
             {{ $projects := where .Site.RegularPages "Section" "projects" }}
-            {{ range first 4 $projects }}
-                <div class="list-item card">
-                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                    <p>{{ .Summary }}</p>
-                    {{ with .Params.tags }}
-                        <div class="tags">
-                            {{ range . }}
-                                <span class="tag">{{ . }}</span>
-                            {{ end }}
-                        </div>
-                    {{ end }}
-                </div>
-            {{ else }}
+            {{ $projectCount := 0 }}
+            {{ range $projects }}
+                {{ if lt $projectCount 4 }}
+                    <div class="list-item card">
+                        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                        <p>{{ .Summary }}</p>
+                        {{ with .Params.tags }}
+                            <div class="tags">
+                                {{ range . }}
+                                    <span class="tag">{{ . }}</span>
+                                {{ end }}
+                            </div>
+                        {{ end }}
+                    </div>
+                    {{ $projectCount = add $projectCount 1 }}
+                {{ end }}
+            {{ end }}
+            {{ if eq $projectCount 0 }}
                 <p>No featured projects at the moment. Stay tuned for exciting developments!</p>
             {{ end }}
         </div>
     </section>
-
+ 
     <!-- Latest News Section -->
     <section class="latest-news">
         <h2>Latest News</h2>
         <div class="flex-container">
             {{ $news := where .Site.RegularPages "Section" "news" }}
-            {{ range first 4 $news }}
-                <div class="list-item card">
-                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-                        {{ .Date.Format "January 2, 2006" }}
-                    </time>
-                    <p>{{ .Summary }}</p>
-                </div>
-            {{ else }}
+            {{ $newsCount := 0 }}
+            {{ range $news }}
+                {{ if lt $newsCount 4 }}
+                    <div class="list-item card">
+                        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                            {{ .Date.Format "January 2, 2006" }}
+                        </time>
+                        <p>{{ .Summary }}</p>
+                    </div>
+                    {{ $newsCount = add $newsCount 1 }}
+                {{ end }}
+            {{ end }}
+            {{ if eq $newsCount 0 }}
                 <p>No news articles available. Check back for updates on Morocco's tech scene!</p>
             {{ end }}
         </div>
     </section>
-
+ 
     <!-- Call-to-action Section -->
     <section class="join-community">
         <h2>Join Our Community</h2>
