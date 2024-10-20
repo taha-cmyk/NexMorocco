@@ -1,6 +1,6 @@
 +++
-title: "Oracle Expands Operations in Morocco"
-date: 2024-10-20
+title =  "Oracle Expands Operations in Morocco"
+date = 2024-10-20
 draft = false
 description = "Oracle announces its official opening in Morocco, expanding its footprint in North Africa. This move is set to boost the tech ecosystem in the region and provide new opportunities for local talent."
 tags = ["Oracle", "Morocco", "Tech News", "2024", "North Africa"]
