@@ -1,0 +1,55 @@
+{{ define "main" }}
+<section class="list-page">
+    <h1 style="font-size:50px; font-weight: bold;">{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+
+    {{ range .Pages }}
+    <article class="list-item">
+        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+
+        {{ if .Params.description }}
+        <p class="description">{{ .Params.description }}</p>
+        {{ end }}
+
+        {{ if .Params.maintainers }}
+        <p><strong>Maintainers:</strong> 
+            {{ range $index, $maintainer := .Params.maintainers }}
+                {{ if gt $index 0 }}, {{ end }}{{ $maintainer }}
+            {{ end }}
+        </p>
+        {{ end }}
+
+        {{ if .Params.project_link }}
+        <p><strong>Project Link:</strong> <a href="{{ .Params.project_link }}" target="_blank">{{ .Params.project_link }}</a></p>
+        {{ end }}
+
+        {{ if .Params.tags }}
+        <div style="margin-bottom: 10px;" class="tags">
+            🏷️
+            {{ range .Params.tags }}
+            <span class="tag">{{ . }}</span>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        {{ if not .Date.IsZero }}
+        <time style="font-weight: bold;" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+            📝 {{ .Date.Format "January 2, 2006" }}
+        </time>
+        {{ end }}
+
+        {{ if .Params.authors }}
+        <p>
+            <strong>Author(s):</strong>
+            {{ range $index, $author := .Params.authors }}
+                {{ if $index }}, {{ end }}
+                <span class="author">{{ . }}</span>
+            {{ end }}
+        </p>
+        {{ end }}
+
+        <a href="{{ .Permalink }}" class="read-more">Read More</a>
+    </article>
+    {{ end }}
+</section>
+{{ end }}
