@@ -1,7 +1,6 @@
 +++
 title = ' 🗂️ Projects'
 date = 2024-10-19T15:25:10+01:00
-draft = true
 +++
 
 🛠️
