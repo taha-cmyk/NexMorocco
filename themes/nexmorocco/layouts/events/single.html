@@ -1,0 +1,71 @@
+{{ define "main" }}
+<article>
+    <h1 style="font-size:50px; font-weight: bold;">{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="lead">{{ . }}</p>{{ end }}
+
+    <div style="display: flex; flex-wrap: wrap; border: 6px double whitesmoke; border-radius: 8px; padding: 15px; margin-bottom: 20px; gap: 10px;">
+        
+        {{ if .Params.location }}
+        <div style="flex: 1; min-width: 200px; border:  dotted whitesmoke; padding: 10px; border-radius: 5px;">
+            <strong>Location:</strong> {{ .Params.location }}
+        </div>
+        {{ end }}
+
+        {{ if .Params.event_date }}
+        <div style="flex: 1; min-width: 200px; border: dotted whitesmoke; padding: 10px; border-radius: 5px;">
+            <strong>Event Date:</strong> 📅 {{ .Params.event_date }}
+        </div>
+        {{ end }}
+
+        {{ if .Params.event_time }}
+        <div style="flex: 1; min-width: 200px; border: dotted whitesmoke; padding: 10px; border-radius: 5px;">
+            <strong>Event Time:</strong> ⏰ {{ .Params.event_time }}
+        </div>
+        {{ end }}
+
+        {{ if .Params.registration_link }}
+        <div style="flex: 1; min-width: 200px; border: dotted whitesmoke; padding: 10px; border-radius: 5px;">
+            <strong>Registration Link:</strong> <a href="{{ .Params.registration_link }}" target="_blank">{{ .Params.registration_link }}</a>
+        </div>
+        {{ end }}
+
+        {{ if .Params.organizer }}
+        <div style="flex: 1; min-width: 200px; border: dotted whitesmoke; padding: 10px; border-radius: 5px;">
+            <strong>Organizer:</strong> {{ .Params.organizer }}
+        </div>
+        {{ end }}
+        
+    </div>
+
+    {{ if .Params.authors }}
+    <p>
+        <strong>Author(s):</strong>
+        {{ range $index, $author := .Params.authors }}
+            {{ if $index }}, {{ end }}
+            <span class="author">{{ . }}</span>
+        {{ end }}
+    </p>
+    {{ end }}
+
+    {{ if .Params.tags }}
+    <div style="margin-bottom: 10px;" class="tags">
+        🏷️
+        {{ range .Params.tags }}
+        <span class="tag">{{ . }}</span>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    {{ if not .Date.IsZero }}
+    <time style="font-weight: bold;" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        📝 {{ .Date.Format "January 2, 2006" }}
+    </time>
+    {{ end }}
+
+    <div class="content">
+        {{ .Content }}
+    </div>
+
+   
+</article>
+{{ end }}

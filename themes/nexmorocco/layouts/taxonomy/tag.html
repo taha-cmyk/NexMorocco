@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <style>
+    .tag-page {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .tag-title {
+      color: #333;
+      border-bottom: 6px double whitesmoke;
+      padding-bottom: 10px;
+    }
+    .tag-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .tag-list-item {
+      margin-bottom: 10px;
+    }
+    .tag-list-link {
+      color: #0077b6;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .tag-list-link:hover {
+      color: #023e8a;
+    }
+  </style>
+
+  <div class="tag-page">
+    <h1 class="tag-title">{{ .Title }}</h1>
+    <ul class="tag-list">
+      {{ range .Pages }}
+        <li class="tag-list-item">
+          <a href="{{ .Permalink }}" class="tag-list-link">{{ .Title }}</a>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+{{ end }}

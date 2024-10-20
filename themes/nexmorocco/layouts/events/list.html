@@ -1,0 +1,53 @@
+{{ define "main" }}
+<section>
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="content">{{ . }}</div>{{ end }}
+    
+    {{ if .Pages }}
+        {{ range .Pages }}
+        <article class="tech-card">
+            <h3><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></h3>
+            
+            <p>
+                <strong>Date:</strong> {{ .Params.event_date }}<br>
+                <strong>Time:</strong> {{ .Params.event_time }}<br>
+                <strong>Location:</strong> {{ .Params.location }}<br>
+                <strong>Organizer:</strong> {{ .Params.organizer }}
+            </p>
+            
+            {{ with .Params.description }}<p>{{ . }}</p>{{ end }}
+            
+            {{ if .Params.authors }}
+            <p>
+                <strong>Author(s):</strong>
+                {{ range $index, $author := .Params.authors }}
+                    {{ if $index }}, {{ end }}
+                    <span class="author">{{ . }}</span>
+                {{ end }}
+            </p>
+            {{ end }}
+            
+            <p><a href="{{ .Params.registration_link }}" class="button">Register Now</a></p>
+            
+            {{ if .Params.tags }}
+            <div class="tags">
+                {{ range .Params.tags }}
+                <span class="tag">{{ . }}</span>
+                {{ end }}
+            </div>
+            {{ end }}
+            
+            {{ if not .Date.IsZero }}
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                📝 {{ .Date.Format "January 2, 2006" }}
+            </time>
+            {{ end }}
+        </article>
+        {{ end }}
+        
+        {{ template "_internal/pagination.html" . }}
+    {{ else }}
+        <p style="font-weight: bold;" class="empty-message">No events are currently scheduled. Please check back later for upcoming events.</p>
+    {{ end }}
+</section>
+{{ end }}

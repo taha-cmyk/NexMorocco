@@ -1,0 +1,37 @@
+{{ define "main" }}
+<article>
+    <h1 style="font-size:50px;font-weight: bold;">{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="lead">{{ . }}</p>{{ end }}
+    
+    {{ if .Params.authors }}
+    <div style="margin-bottom: 10px;" class="authors">
+        ✍️ <strong>Authors:</strong>
+        {{ range $index, $author := .Params.authors }}
+            {{ if $index }}, {{ end }}
+            <span class="author">{{ . }}</span>
+        {{ end }}
+    </div>
+    {{ end }}
+    
+    {{ if .Params.tags }}
+    <div style="margin-bottom: 10px;" class="tags">
+        🏷️
+        {{ range .Params.tags }}
+        <span class="tag">{{ . }}</span>
+        {{ end }}
+    </div>
+    {{ end }}
+    
+    {{ if not .Date.IsZero }}
+    <time style="font-weight: bold;" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        📝 {{ .Date.Format "January 2, 2006" }}
+    </time>
+    {{ end }}
+    
+    <div class="content">
+        {{ .Content }}
+    </div>
+    
+
+</article>
+{{ end }}
